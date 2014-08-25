@@ -8,37 +8,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.todoapp.EditItemActivity" >
 
-    <EditText
-        android:id="@+id/updateItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="63dp"
-        android:ems="10"
-        android:inputType="textMultiLine" >
 
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/updateItem"
-        android:layout_below="@+id/updateItem"
-        android:layout_marginTop="39dp"
-        android:onClick="onSaveItem"
-        android:text="Save" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/updateItem"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="43dp"
         android:text="Edit Item below" />
+
+    <EditText
+        android:id="@+id/updateItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="onSaveItem"
+        android:text="Save" />
 
 </RelativeLayout>
