@@ -39,7 +39,7 @@ public class ToDoActivity extends FragmentActivity {
         datasource = new ToDoItemsDataSource(this);
         datasource.open();
         lvItems = (ListView) findViewById(R.id.lvItems);
-        etNewItem =(EditText) findViewById(R.id.editItem);
+      //  etNewItem =(EditText) findViewById(R.id.editItem);
        // populateArrayItems();
         //readItems();
         todoItems = datasource.getAllToDos();
@@ -91,6 +91,10 @@ public class ToDoActivity extends FragmentActivity {
 						// TODO Auto-generated method stub
 						Date date = new Date(year, month, day);
 						datasource.updateToDoItem(todoItem.getId(), text, date, priority);
+						todoItem.setText(text);
+						todoItem.setDueDate(date);
+						todoItem.setPriority(priority);
+						aTodoItems.notifyDataSetChanged();
 								//new ToDoItem(text,date, priority);
 						//aTodoItems.add(todo.toString());
 						//writeItems();

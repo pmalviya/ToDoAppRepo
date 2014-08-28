@@ -1,6 +1,7 @@
 package com.example.todoapp;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Intent;
@@ -11,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 // ...
@@ -22,7 +26,9 @@ public class EditItemDialog extends DialogFragment {
 
 	private EditText mEditText;
 	private DatePicker mDueDate;
-	private EditText mPriority;
+	private Integer mPriority;
+	private Spinner mSpinner;
+	private ArrayList<String> priorities = new ArrayList<String>();
 	private Button mSave;
 	
 	public EditItemDialog() {
@@ -56,8 +62,9 @@ public class EditItemDialog extends DialogFragment {
 		}
 		args.putString("text", text);
 		args.putInt("year", year.intValue());
+		args.putInt("month", month.intValue());
 		args.putInt("day", day.intValue());
-		args.putString("priority", priority.toString());
+		args.putInt("priority", priority);
 		frag.setArguments(args);
 		return frag;
 	}
@@ -80,9 +87,36 @@ public class EditItemDialog extends DialogFragment {
 		mDueDate.updateDate(getArguments().getInt("year"), getArguments().getInt("month"), getArguments().getInt("day"));
 		
 		// Set Priority
-		mPriority = (EditText) view.findViewById(R.id.priority);
-		mPriority.setText(getArguments().getString("priority", "1"));
+		priorities.add("Low");
+		priorities.add("Medium");
+		priorities.add("High");
 		
+		mSpinner = (Spinner)view.findViewById(R.id.spinner1);
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_spinner_item,priorities);
+
+		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mSpinner.setAdapter(arrayAdapter);
+        
+		mSpinner.setSelection(getArguments().getInt("priority"));
+		//mPriority = (EditText) view.findViewById(R.id.priority);
+		//mPriority.setText(getArguments().getString("priority", "1"));
+		
+		
+		  // Set the ClickListener for Spinner
+		mSpinner.setOnItemSelectedListener(new  AdapterView.OnItemSelectedListener() { 
+
+		     public void onItemSelected(AdapterView<?> adapterView, 
+		             View view, int i, long l) { 
+		             // TODO Auto-generated method stub
+		           		mPriority = i;
+		               }
+		                // If no option selected
+		    public void onNothingSelected(AdapterView<?> arg0) {
+		     // TODO Auto-generated method stub
+		          mPriority = 0;
+		    } 
+
+		        });
 		//Set listener for save button
 		mSave = (Button) view.findViewById(R.id.saveButton);
 		mSave.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +128,7 @@ public class EditItemDialog extends DialogFragment {
 				Integer year = mDueDate.getYear();
 				Integer month = mDueDate.getMonth();
 				Integer day = mDueDate.getDayOfMonth();
-				Integer priority = new Integer(mPriority.getText().toString());
+				Integer priority = new Integer(mPriority.toString());
 				
 				dListener.onDialogDone(text, year, month, day, priority);
 				getDialog().dismiss();

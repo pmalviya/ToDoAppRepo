@@ -14,7 +14,7 @@ public class ToDoItem{
 	}
 	@Override
 	public String toString(){
-		return this.text;
+		return this.text +"\n"+ this.dueDate.toString() +"\t" + this.priority;
 	}
 
 	public void setId(long id) {

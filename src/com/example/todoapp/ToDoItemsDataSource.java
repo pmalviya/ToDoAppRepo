@@ -67,7 +67,7 @@ public class ToDoItemsDataSource{
 			values.put(ToDoSQLLiteHelper.COLUMN_TEXT, text);
 			values.put(ToDoSQLLiteHelper.COLUMN_DATE, dueDate.toString());
 			values.put(ToDoSQLLiteHelper.COLUMN_PRIORITY, priority);
-		    database.update(ToDoSQLLiteHelper.TABLE_TODOITEMS, values, ToDoSQLLiteHelper.COLUMN_ID + "=" + id, null);
+		    database.update(ToDoSQLLiteHelper.TABLE_TODOITEMS, values, ToDoSQLLiteHelper.COLUMN_ID + " = " + id, null);
 		  }
 		  public List<ToDoItem> getAllToDos() {
 		    List<ToDoItem> toDoItems = new ArrayList<ToDoItem>();
